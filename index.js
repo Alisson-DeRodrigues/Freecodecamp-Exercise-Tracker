@@ -61,6 +61,14 @@ app.get('/api/users/:_id/logs', function(req, res){
       log.push(exercice);
     }
   }
+
+  let { from, to, limit } = req.query;
+  let fromDate = from ? new Date(from) : null;
+  let toDate = to ? new Date(to) : null;
+  if (fromDate != null && toDate != null){
+    log = log.filter(exercice => new Date(exercice.date) >= fromDate && new Date(exercice.date) <= toDate);
+  }
+  
   let count = log.length;
   res.json({_id: userId, username: user.username, count: count, log: log});
   
