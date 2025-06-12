@@ -58,7 +58,11 @@ app.get('/api/users/:_id/logs', function(req, res){
   }
   for (exercice of exercises){
     if (exercice._id === userId){
-      log.push(exercice);
+      log.push({
+        description: exercice.description,
+        duration: exercice.duration,
+        date: exercice.date
+      });
     }
   }
 
@@ -68,7 +72,7 @@ app.get('/api/users/:_id/logs', function(req, res){
   if (fromDate != null && toDate != null){
     log = log.filter(exercice => new Date(exercice.date) >= fromDate && new Date(exercice.date) <= toDate);
     if(limit != null){
-       log = log.slice(0, parseInt(limit));
+      log = log.slice(0, parseInt(limit));
     }
   }
   
