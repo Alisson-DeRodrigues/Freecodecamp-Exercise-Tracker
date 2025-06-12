@@ -67,6 +67,9 @@ app.get('/api/users/:_id/logs', function(req, res){
   let toDate = to ? new Date(to) : null;
   if (fromDate != null && toDate != null){
     log = log.filter(exercice => new Date(exercice.date) >= fromDate && new Date(exercice.date) <= toDate);
+    if(limit != null){
+      log = log.slice(0, limit);
+    }
   }
   
   let count = log.length;
